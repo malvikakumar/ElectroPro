@@ -30,7 +30,7 @@ class ProductList extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // Add your onPressed code here!
+            Navigator.pushNamed(context, '/createproduct');
           },
           child: Icon(Icons.add),
         ),
