@@ -1,5 +1,5 @@
-import 'package:ElectroPro/widgets/product_card.dart';
 import 'package:flutter/material.dart';
+import 'product_card.dart';
 
 class ProductList extends StatelessWidget {
   @override

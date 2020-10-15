@@ -1,6 +1,8 @@
-import 'package:ElectroPro/widgets/create_product.dart';
 import 'package:flutter/material.dart';
-import 'package:ElectroPro/widgets/widgets.dart';
+
+import 'widgets/create_product.dart';
+import 'widgets/login.dart';
+import 'widgets/product_list.dart';
 
 void main() {
   runApp(MaterialApp(
