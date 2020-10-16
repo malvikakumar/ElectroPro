@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 
 import 'product_list.dart';
 
-class CreateProduct extends StatefulWidget {
+class UpdateProduct extends StatefulWidget {
+  // final Product product;
+
+  // const UpdateProduct({this.product}) : super();
   @override
-  CreateProductState createState() => CreateProductState();
+  UpdateProductState createState() => UpdateProductState();
 }
 
-class CreateProductState extends State<CreateProduct> {
+class UpdateProductState extends State<UpdateProduct> {
   TextEditingController name = TextEditingController();
   TextEditingController description = TextEditingController();
   TextEditingController processor = TextEditingController();
@@ -23,9 +26,10 @@ class CreateProductState extends State<CreateProduct> {
 
   @override
   Widget build(BuildContext context) {
+    final Product product = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Product'),
+        title: Text('Update Product'),
       ),
       body: Padding(
         padding: EdgeInsets.all(10),
@@ -34,17 +38,14 @@ class CreateProductState extends State<CreateProduct> {
             Container(
               padding: EdgeInsets.all(10),
               child: TextField(
-                controller: name,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Name',
-                ),
+                controller: name..text = product.title,
+                decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'Name'),
               ),
             ),
             Container(
               padding: EdgeInsets.all(10),
               child: TextField(
-                controller: description,
+                controller: description..text = product.description,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Description',
@@ -75,7 +76,7 @@ class CreateProductState extends State<CreateProduct> {
             Container(
               padding: EdgeInsets.all(10),
               child: TextField(
-                controller: processor,
+                controller: processor..text = product.processor,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Processor',
@@ -85,7 +86,7 @@ class CreateProductState extends State<CreateProduct> {
             Container(
               padding: EdgeInsets.all(10),
               child: TextField(
-                controller: ram,
+                controller: ram..text = product.ram,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'RAM',
@@ -96,7 +97,7 @@ class CreateProductState extends State<CreateProduct> {
               Container(
                 padding: EdgeInsets.all(10),
                 child: TextField(
-                  controller: screenSize,
+                  controller: screenSize..text = product.screenSize,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Screen Size',
@@ -106,7 +107,7 @@ class CreateProductState extends State<CreateProduct> {
               Container(
                 padding: EdgeInsets.all(10),
                 child: TextField(
-                  controller: color,
+                  controller: color..text = product.color,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Color',
@@ -117,7 +118,7 @@ class CreateProductState extends State<CreateProduct> {
               Container(
                 padding: EdgeInsets.all(10),
                 child: TextField(
-                  controller: hdCapacity,
+                  controller: hdCapacity..text = product.hdCapacity,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'HD Capacity',
@@ -131,16 +132,10 @@ class CreateProductState extends State<CreateProduct> {
                 child: RaisedButton(
                   textColor: Colors.white,
                   color: Colors.blue,
-                  child: Text('Create'),
+                  child: Text('Update'),
                   onPressed: () async {
-                    await _createProduct();
+                    await _updateProduct(product.id);
                     Navigator.pop(context);
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => ProductList(),
-                    //   ),
-                    // );
                   },
                 )),
           ],
@@ -149,9 +144,9 @@ class CreateProductState extends State<CreateProduct> {
     );
   }
 
-  _createProduct() async {
-    Product product = Product(
-      null,
+  _updateProduct(int productId) async {
+    Product product = new Product(
+      productId,
       this.name.text,
       this.description.text,
       this.type,
@@ -161,6 +156,6 @@ class CreateProductState extends State<CreateProduct> {
       this.color.text,
       this.hdCapacity.text,
     );
-    await ProductApi.createProduct(product);
+    await ProductApi.updateProduct(product);
   }
 }

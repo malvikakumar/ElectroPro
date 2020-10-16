@@ -1,3 +1,4 @@
+import 'package:currency/widgets/update_product.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/create_product.dart';
@@ -12,6 +13,7 @@ void main() {
       '/': (context) => Login(),
       '/productlist': (context) => ProductList(),
       '/createproduct': (context) => CreateProduct(),
+      '/updateproduct': (context) => UpdateProduct(),
     },
   ));
 }

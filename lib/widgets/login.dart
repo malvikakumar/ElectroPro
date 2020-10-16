@@ -1,3 +1,4 @@
+import 'package:currency/repositories/userApi.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -8,6 +9,16 @@ class Login extends StatefulWidget {
 class _State extends State<Login> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  Future<bool> loginValidation() async {
+    var loginResponse = await UserApi.getUser(nameController.text, passwordController.text);
+    var status = loginResponse.statusCode;
+    if (status == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +72,11 @@ class _State extends State<Login> {
                   textColor: Colors.white,
                   color: Colors.blue,
                   child: Text('Login'),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/productlist');
+                  onPressed: () async {
+                    bool canLogin = await loginValidation();
+                    if (canLogin) {
+                      Navigator.pushNamed(context, '/productlist');
+                    }
                   },
                 )),
           ],
